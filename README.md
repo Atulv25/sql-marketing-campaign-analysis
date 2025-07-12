@@ -3,7 +3,6 @@
 ## 🧠 Project Overview
 
 **Project Title:** Campaign Performance Tracker  
-**Level:** Intermediate  
 **Tech Stack:** SQL (MySQL), CSV  
 **Dataset:** `big_campaigns.csv`, `big_ad_performance_800.csv`
 
@@ -155,18 +154,20 @@ ORDER BY ctr DESC;
 ```
 
 
-##📊 Insights
+📈 Insights
+
 🔝 Instagram was the best-performing channel (highest CTR & lowest CPA)
 
 💰 Year End Sale was the most successful campaign
 
 📉 No budget overspend across campaigns
 
-🔍 Channel selection impacts efficiency significantly
+🔍 Channel selection impacts campaign efficiency significantly
 
-##🚀 Future Enhancements
+🚀 Future Enhancements
+
 Include revenue column to compute ROI
 
-Add Power BI or Excel dashboards
+Add Power BI or Excel dashboards for visual insights
 
-Use time series analysis to predict campaign trends
+Use time series analysis to predict future campaign trends

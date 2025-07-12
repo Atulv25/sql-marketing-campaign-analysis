@@ -155,7 +155,7 @@ ORDER BY ctr DESC;
 ```
 
 
-📊 Insights
+##📊 Insights
 🔝 Instagram was the best-performing channel (highest CTR & lowest CPA)
 
 💰 Year End Sale was the most successful campaign
@@ -164,7 +164,7 @@ ORDER BY ctr DESC;
 
 🔍 Channel selection impacts efficiency significantly
 
-🚀 Future Enhancements
+##🚀 Future Enhancements
 Include revenue column to compute ROI
 
 Add Power BI or Excel dashboards

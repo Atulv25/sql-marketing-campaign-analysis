@@ -68,3 +68,104 @@ CREATE TABLE big_ad_performance_800 (
   cost FLOAT,
   date DATE
 );
+
+
+## Data Analysis & Findings
+The following SQL queries were developed to answer specific business questions related to digital marketing performance:
+
+1. What is the Click-Through Rate (CTR) for each campaign?
+
+SELECT 
+  c.campaign_name,
+  ROUND(SUM(a.clicks) * 100.0 / NULLIF(SUM(a.impressions), 0), 2) AS ctr_percent
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.campaign_name;
+
+2. What is the Cost Per Acquisition (CPA) for each campaign?
+
+SELECT 
+  c.campaign_name,
+  ROUND(SUM(a.cost) / NULLIF(SUM(a.conversions), 0), 2) AS cpa
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.campaign_name;
+
+3. How much budget has each campaign used, and what’s the utilization percentage?
+
+SELECT 
+  c.campaign_name,
+  c.budget,
+  ROUND(SUM(a.cost), 2) AS total_spent,
+  ROUND(SUM(a.cost) * 100.0 / NULLIF(c.budget, 0), 2) AS budget_utilization_percent
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.campaign_name, c.budget;
+
+4. What is the daily ad spend trend across all campaigns?
+
+SELECT 
+  a.date,
+  ROUND(SUM(a.cost), 2) AS daily_spend
+FROM big_ad_performance_800 AS a
+GROUP BY a.date
+ORDER BY a.date;
+
+5. Which channel has the highest conversion rate (conversions per click)?
+
+SELECT 
+  c.channel,
+  ROUND(SUM(a.conversions) * 100.0 / NULLIF(SUM(a.clicks), 0), 2) AS conversion_rate
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.channel
+ORDER BY conversion_rate DESC;
+
+6. Which campaigns are underperforming (CPA greater than ₹500)?
+
+SELECT 
+  c.campaign_name,
+  ROUND(SUM(a.cost) / NULLIF(SUM(a.conversions), 0), 2) AS cpa
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.campaign_name
+HAVING cpa > 500;
+
+7. Which campaigns achieved the highest number of conversions and what were their CTRs?
+
+SELECT 
+  c.campaign_name,
+  SUM(a.conversions) AS total_conversions,
+  ROUND(SUM(a.clicks) * 100.0 / NULLIF(SUM(a.impressions), 0), 2) AS ctr
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.campaign_name
+ORDER BY total_conversions DESC, ctr DESC;
+
+8. How does each marketing channel perform in terms of CTR and CPA?
+SELECT 
+  c.channel,
+  ROUND(SUM(a.clicks)*100.0 / NULLIF(SUM(a.impressions), 0), 2) AS ctr,
+  ROUND(SUM(a.cost) / NULLIF(SUM(a.conversions), 0), 2) AS cpa
+FROM big_campaigns AS c
+JOIN big_ad_performance_800 AS a ON c.campaign_id = a.campaign_id
+GROUP BY c.channel
+ORDER BY ctr DESC;
+
+
+
+📊 Insights
+🔝 Instagram was the best-performing channel (highest CTR & lowest CPA)
+
+💰 Year End Sale was the most successful campaign
+
+📉 No budget overspend across campaigns
+
+🔍 Channel selection impacts efficiency significantly
+
+🚀 Future Enhancements
+Include revenue column to compute ROI
+
+Add Power BI or Excel dashboards
+
+Use time series analysis to predict campaign trends
